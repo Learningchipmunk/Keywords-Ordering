@@ -1,0 +1,16 @@
+## Ignore data
+*.dtd
+*.xml*
+*.json
+*.zip
+*.bak
+
+## Ignore jupyter checkpoints
+*ipynb_checkpoints/
+
+## Ignore models
+*.pkl
+
+## Ignore folders
+/Data
+/periodicals

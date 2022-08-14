@@ -1,0 +1,1 @@
+We store all models trained in this folder. I'll link to the models I trained later.
