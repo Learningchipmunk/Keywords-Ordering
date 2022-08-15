@@ -6,6 +6,17 @@
 *.bak
 *.rar
 
+## Ignore Images
+*.jpg
+*.jpeg
+*.jpe
+*.png
+*.raw
+*.jif
+*.svg
+*.svgz
+
+
 ## Ignore jupyter checkpoints
 *ipynb_checkpoints/
 
