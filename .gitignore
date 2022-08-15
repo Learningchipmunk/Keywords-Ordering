@@ -4,6 +4,7 @@
 *.json
 *.zip
 *.bak
+*.rar
 
 ## Ignore jupyter checkpoints
 *ipynb_checkpoints/
