@@ -1,0 +1,1 @@
+Here is where one should store the .json files from the zip Preprocessed_Periodicals.zip.
