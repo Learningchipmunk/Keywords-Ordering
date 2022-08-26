@@ -127,31 +127,39 @@ def ChooseMostImportantConcepts(ccs):
       Returns:
           list: list of CCS branches
       '''
-      max_importance = np.max(ccs.values())
+      if(list(ccs.values()) == []): return []
+      max_importance = np.max(list(ccs.values()))
       associated_concepts = []
       for key, value in ccs.items():
-            if value == max_importance:
+            if value >= max_importance:
                   associated_concepts.append(key)
             
       return associated_concepts
 
-def ExtractRootAndLeafFromCCSBranch(ccs_branch):
+def ExtractRootAndLeafFromCCSBranch(ccs_branch, preprocess=False):
       concept_root, concept_leaf = None, None
       if('->' in ccs_branch):
             concept_list = ccs_branch.split("->")
-            if(len(concept_list)<=2): return np.nan
+            if(len(concept_list)<=2): return np.nan, np.nan
             concept_root = concept_list[1]
             concept_leaf = concept_list[-1]
       elif('~' in ccs_branch):
-            print(ccs_branch)
             concept_list = ccs_branch.split("~")
-            if(len(concept_list)<=1): return np.nan
+            if(len(concept_list)<=1): return np.nan, np.nan
             concept_root = concept_list[0]
             concept_leaf = concept_list[-1]
       else:
-            return np.nan
+            return np.nan, np.nan
+
+      if preprocess:
+            concept_root, concept_leaf = stringPreprocessing(concept_root), stringPreprocessing(concept_leaf)
 
       return concept_root, concept_leaf
 
 ## Define a function that takes the ccs dict and returns main root main leaf and main ccs branches
-
+def ExtractMainRootLeafAndConcepts(ccs):
+      associated_concept_list = ChooseMostImportantConcepts(ccs)
+      if(associated_concept_list == []):return np.nan, np.nan, np.nan
+      high_importance_concept_leafs_and_roots = [ExtractRootAndLeafFromCCSBranch(branch, preprocess=True) for branch in associated_concept_list]
+      concept_root, concept_leaf = high_importance_concept_leafs_and_roots[0]
+      return concept_root, concept_leaf, high_importance_concept_leafs_and_roots
