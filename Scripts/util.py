@@ -158,8 +158,28 @@ def ExtractRootAndLeafFromCCSBranch(ccs_branch, preprocess=False):
 
 ## Define a function that takes the ccs dict and returns main root main leaf and main ccs branches
 def ExtractMainRootLeafAndConcepts(ccs):
+      '''Function that takes a ccs dictionnary and returns three elements:
+         the main concept root
+         the main concept leaf
+         and all the concept root concept leaf pairs of high importance [(concept_root, concept_leaf), ...]
+         Example:
+            input: {'CCS->Mathematics of computing->Mathematical analysis->Functional analysis->Approximation': 100, 
+                  'CCS->Theory of computation->Design and analysis of algorithms->Approximation algorithms analysis': 100,
+                  'CCS->Mathematics of computing->Mathematical analysis->Numerical analysis->Computations on matrices': 500, 
+                  'CCS->Computing methodologies->Symbolic and algebraic manipulation->Symbolic and algebraic algorithms->Linear algebra algorithms': 500}
+            Output: ('mathematics computing',
+                  'computation matrix',
+                  [('mathematics computing', 'computation matrix'),
+                  ('computing methodology', 'linear algebra algorithm')])
+
+      Args:
+          ccs (dict): {'CCS BRanch':Importance(integer)}
+
+      Returns:
+          list: list of three elements
+      '''
       associated_concept_list = ChooseMostImportantConcepts(ccs)
-      if(associated_concept_list == []):return np.nan, np.nan, np.nan
+      if(associated_concept_list == []):return [np.nan, np.nan, np.nan]
       high_importance_concept_leafs_and_roots = [ExtractRootAndLeafFromCCSBranch(branch, preprocess=True) for branch in associated_concept_list]
       concept_root, concept_leaf = high_importance_concept_leafs_and_roots[0]
-      return concept_root, concept_leaf, high_importance_concept_leafs_and_roots
+      return [concept_root, concept_leaf, high_importance_concept_leafs_and_roots]
