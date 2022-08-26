@@ -5,6 +5,7 @@
 *.zip
 *.bak
 *.rar
+*.csv
 
 ## Ignore Images
 *.jpg
