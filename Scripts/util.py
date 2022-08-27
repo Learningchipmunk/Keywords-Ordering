@@ -64,6 +64,8 @@ def stringPreprocessing(inp_str):
             " ",              # and replaces it with a space
             no_URLs, flags=re.VERBOSE)
 
+      ## Add a regex that fixes words with points in the middle: Coef.cients
+
       ## Removing Soft Hyphens (\xad)
       no_SH = re.sub(r"""
             \xad *            # Accepts Soft Hyphens
