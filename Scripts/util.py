@@ -33,7 +33,6 @@ def stringPreprocessing(inp_str):
             - Lower casing
             - Tokenization
             - Removing Stop words
-            - Tokenizetion
             - Lemmatization (to understand meaning in examples)
             - Concatenation and seperation by spaces
 
