@@ -28,7 +28,7 @@ def stringPreprocessing(inp_str):
             - Removing HTML tags like `<p>`
             - Removing URLs
             - Removing email addresses
-            - Removing soft hyphens (\xag)
+            - Removing soft hyphens ("\"xag")
             - Remove punctuation `,.;@#?!&$()`
             - Lower casing
             - Tokenization
@@ -64,6 +64,9 @@ def stringPreprocessing(inp_str):
             no_URLs, flags=re.VERBOSE)
 
       ## Add a regex that fixes words with points in the middle: Coef.cients
+      ## Deal with doi://
+      ## Deal with ___amp___
+      ## Deal with []
 
       ## Removing Soft Hyphens (\xad)
       no_SH = re.sub(r"""
@@ -141,7 +144,7 @@ def ExtractRootAndLeafFromCCSBranch(ccs_branch, preprocess=False):
       concept_root, concept_leaf = None, None
       if('->' in ccs_branch):
             concept_list = ccs_branch.split("->")
-            if(len(concept_list)<=2): return np.nan, np.nan
+            if(len(concept_list)<=2 and concept_list[0].lower() == 'ccs'): return np.nan, np.nan
             concept_root = concept_list[1]
             concept_leaf = concept_list[-1]
       elif('~' in ccs_branch):
