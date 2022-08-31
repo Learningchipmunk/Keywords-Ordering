@@ -22,7 +22,7 @@ def cartesianProductOfLists(list1, list2):
       Returns:
           list of typles: The cartesian product of both inputted lists.
       """
-      return itertools.product(list1, list2)
+      return list(itertools.product(list1, list2))
 
 def findAllIterationsInString(inp_str, sub_str):
       '''Given an input text string (inp_str) and a substring (sub_str), this function
