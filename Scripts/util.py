@@ -3,12 +3,26 @@ import nltk
 from nltk.stem import WordNetLemmatizer
 import nltk
 import re
+import itertools
 
 nltk.download('wordnet')
 nltk.download('omw-1.4')
 
 stopwords = nltk.corpus.stopwords.words('english')
 wordnet_lemmatizer = WordNetLemmatizer()
+
+def cartesianProductOfLists(list1, list2):
+      """Given two lists, this functions returns the cartesian product of this two lists.
+         Ex: [1,2], [3,4,5] -> [(1, 3), (1, 4), (1, 5), (2, 3), (2, 4), (2, 5)]
+
+      Args:
+          list1 (list): Input list number one.
+          list2 (lsit): Input list number two.
+
+      Returns:
+          list of typles: The cartesian product of both inputted lists.
+      """
+      return itertools.product(list1, list2)
 
 def findAllIterationsInString(inp_str, sub_str):
       '''Given an input text string (inp_str) and a substring (sub_str), this function
