@@ -81,6 +81,7 @@ def stringPreprocessing(inp_str):
       ## Deal with doi://
       ## Deal with ___amp___
       ## Deal with []
+      ## Get inspired by their preprocessing https://stackabuse.com/python-for-nlp-working-with-facebook-fasttext-library/
 
       ## Removing Soft Hyphens (\xad)
       no_SH = re.sub(r"""
@@ -103,7 +104,7 @@ def stringPreprocessing(inp_str):
       ## Tokenization
       tokenized = lowered.split()
 
-      ## removing stop words
+      ## Removing stop words
       no_stpwrds = [i for i in tokenized if i not in stopwords]
 
       ## Lemmatization
