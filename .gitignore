@@ -9,6 +9,7 @@
 *.gz
 *.tar*
 *.bin
+*.vec
 
 ## Ignore Images
 *.jpg
