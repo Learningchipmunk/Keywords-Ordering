@@ -202,3 +202,15 @@ def ExtractMainRootLeafAndConcepts(ccs):
       high_importance_concept_leafs_and_roots = [ExtractRootAndLeafFromCCSBranch(branch, preprocess=True) for branch in associated_concept_list]
       concept_root, concept_leaf = high_importance_concept_leafs_and_roots[0]
       return [concept_root, concept_leaf, high_importance_concept_leafs_and_roots]
+
+
+def ExtractIntLabelFromPred(pred):
+      '''Extracts Integer Label from FastText model prediction.
+
+      Args:
+          pred (str): a string like '__label__1' to int(1).
+
+      Returns:
+          int: The integer that represent the label of the prediction.
+      '''
+      return int(pred[0][0].split("__label__")[1])
