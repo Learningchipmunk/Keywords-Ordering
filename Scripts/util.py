@@ -4,6 +4,7 @@ from nltk.stem import WordNetLemmatizer
 import nltk
 import re
 import itertools
+import ast
 
 nltk.download('wordnet')
 nltk.download('omw-1.4')
@@ -214,3 +215,22 @@ def ExtractIntLabelFromPred(pred):
           int: The integer that represent the label of the prediction.
       '''
       return int(pred[0][0].split("__label__")[1])
+
+def ReadHighImportanceConceptArticleDF(article_df):
+      '''Extracts the list of important concepts and removes the Nans.
+
+      Args:
+            article_df (pandas dataframe): the preprocessed article dataframe
+
+      returns: 
+            article_df: we now have a list of concepts at `high_Importance_concept_roots_and_leafs`. 
+      '''
+      def removeNans(str_inp):
+            no_nans = re.sub(r',? ?\(nan, nan\),? ?', ',', str_inp)
+            no_trailing_commas = re.sub(r', *(, *)+', ',', no_nans)
+            no_isolated_commas = re.sub(r'\[, *\(', '[(', no_trailing_commas)
+            no_comma_list      = re.sub(r'\[ *,* *\]', '[]', no_isolated_commas)
+            return no_comma_list
+      article_df['high_Importance_concept_roots_and_leafs'] = article_df['high_Importance_concept_roots_and_leafs'].apply(lambda x: ast.literal_eval(removeNans(x)))
+
+      return article_df

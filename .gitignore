@@ -11,6 +11,7 @@
 *.tar*
 *.bin
 *.vec
+*.npy
 
 ## Ignore Images
 *.jpg
