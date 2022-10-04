@@ -16,9 +16,9 @@ def entropy(distrib):
     """Function that computes the Entropy of a probability distribution p(x):
        -sum over x of p(x) * log(p(x))
     """
-    eps = 1e-12
+    idx1 = np.where(distrib>0)
     if np.linalg.norm(distrib, ord=1)==0: return np.nan## We decide that Entropy is Nan when there is no occurences.
-    return -np.sum(distrib * np.log(distrib + eps))
+    return -np.sum(distrib[idx1] * np.log(distrib[idx1]))
 
 
 def kl_div(x, y):
@@ -35,10 +35,12 @@ def MutualInfoEmbed(kw1_embed, kw2_embed):
 
     return mutual_info_score(kw1_embed, kw2_embed) 
 
-def ComputeMetricsForKeywordPair(kw1_embed, kw2_embed, verbose=False):
+def ComputeMetricsForKeywordPair(kw1_embed, kw2_embed, normalize=True, verbose=False):
     """Final function that computes the metrics given two keyword embeddings."""
-    H1_var = entropy(kw1_embed)
-    H2_var = entropy(kw2_embed)
+    if(normalize):
+        kw1_embed, kw2_embed = normalize_distrib(kw1_embed), normalize_distrib(kw2_embed)
+    H1_var  = entropy(kw1_embed)
+    H2_var  = entropy(kw2_embed)
     kl_div1 = kl_div(kw1_embed, kw2_embed).sum()
     kl_div2 = kl_div(kw2_embed, kw1_embed).sum()
     ratio   = kl_div1/kl_div2 if kl_div2 != 0 else np.nan
@@ -51,3 +53,9 @@ def ComputeMetricsForKeywordPair(kw1_embed, kw2_embed, verbose=False):
     #     clear_output(wait=True)
 
     return (H1_var, H2_var, kl_div1, kl_div2, ratio)#, MI_var
+
+def ComputeMetrics(kw1, kw2, embedding_dict, normalize=True):
+    if(normalize):
+        kw1_embed, kw2_embed = normalize_distrib(embedding_dict[kw1]), normalize_distrib(embedding_dict[kw2])
+
+    return ComputeMetricsForKeywordPair(kw1_embed, kw2_embed, verbose=False)
