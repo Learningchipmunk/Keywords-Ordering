@@ -44,7 +44,7 @@ def stringPreprocessing(inp_str):
             - Removing URLs
             - Removing email addresses
             - Removing soft hyphens ("\"xag")
-            - Remove punctuation `,.;@#?!&$()`
+            - Remove punctuation `,.;@#?!&$()_`
             - Lower casing
             - Tokenization
             - Removing Stop words
@@ -93,7 +93,7 @@ def stringPreprocessing(inp_str):
 
       ## Removing punctuation
       no_punct = re.sub(r"""
-            [,.:;@#?!&$()|]+  # Accept one or more copies of punctuation
+            [,.:;@#?!&$()|_]+  # Accept one or more copies of punctuation
             \ *               # plus zero or more copies of a space,
             """,
             " ",              # and replaces it with a single space
